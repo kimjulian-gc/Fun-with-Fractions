@@ -77,7 +77,7 @@ public class BigFraction {
     return new BigFraction(
       this.num.divide(ndGcd),
       this.denom.divide(ndGcd)
-    );
+    ).simplify();
   }
 
   /**
@@ -102,7 +102,7 @@ public class BigFraction {
     resultNumerator = (this.num.multiply(addMe.denom)).add(addMe.num.multiply(this.denom));
 
     // Return the computed value
-    return new BigFraction(resultNumerator, resultDenominator);
+    return new BigFraction(resultNumerator, resultDenominator).simplify();
   }// add(Fraction)
 
   /**
@@ -142,14 +142,14 @@ public class BigFraction {
 
     return new BigFraction(
       this.num.multiply(second.num),
-      this.denom.multiply(second.denom));
+      this.denom.multiply(second.denom)).simplify();
   }
 
   public BigFraction divide(BigFraction second) {
     return new BigFraction(
       this.num.multiply(second.denom),
       this.denom.multiply(second.num)
-    );
+    ).simplify();
   }
 
   public BigFraction subtract(BigFraction second) {

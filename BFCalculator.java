@@ -14,10 +14,11 @@ public class BFCalculator {
 
   public BFCalculator() {
     this.namedRegister = new HashMap<Character, BigFraction>();
+    this.lastValue = new BigFraction(0, 1);
   }
 
   public BigFraction evaluate(String exp) {
-    String[] expArr = exp.split(" ");
+    String[] expArr = exp.split(" |\\+|-|\\*|\\/");
     BigFraction evalFraction = new BigFraction(0, 1);
     Operator currOp = Operator.ADD;
 
