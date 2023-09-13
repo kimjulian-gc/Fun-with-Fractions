@@ -54,7 +54,7 @@ public class BFCalculator {
   }
 
   public void store(char register) {
-
+    this.namedRegister.put(register, this.lastValue);
   }
 
   private static boolean isInt(String str) {
