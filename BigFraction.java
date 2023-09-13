@@ -152,11 +152,19 @@ public class BigFraction {
     ).simplify();
   }
 
-  public BigFraction subtract(BigFraction second) {
-    return new BigFraction(
-      this.num.multiply(this.denom).subtract(this.denom.multiply(this.num)),
-      this.num.multiply(this.denom)
-    ).simplify();
+  public BigFraction subtract(BigFraction subMe) {
+    BigInteger resultNumerator;
+    BigInteger resultDenominator;
+
+    // The denominator of the result is the
+    // product of this object's denominator
+    // and addMe's denominator
+    resultDenominator = this.denom.multiply(subMe.denom);
+    // The numerator is more complicated
+    resultNumerator = (this.num.multiply(subMe.denom)).subtract(subMe.num.multiply(this.denom));
+
+    // Return the computed value
+    return new BigFraction(resultNumerator, resultDenominator).simplify();
   }
 
   public BigFraction fractional() {
