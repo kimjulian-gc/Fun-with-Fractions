@@ -77,7 +77,7 @@ public class BigFraction {
     return new BigFraction(
       this.num.divide(ndGcd),
       this.denom.divide(ndGcd)
-    ).simplify();
+    );
   }
 
   /**

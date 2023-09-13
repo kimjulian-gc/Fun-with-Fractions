@@ -18,35 +18,42 @@ public class BFCalculator {
   }
 
   public BigFraction evaluate(String exp) {
-    String[] expArr = exp.split(" |\\+|-|\\*|\\/");
-    BigFraction evalFraction = new BigFraction(0, 1);
+    String[] expArr = exp.split(" ");
     Operator currOp = Operator.ADD;
 
-    for (int i = 0; i < expArr.length; i++) {
-      String curr = expArr[i];
+    BigFraction evalFraction = this.lastValue;
+    String firstParsed = expArr[0];
+    if (firstParsed.indexOf("/") != -1)
+      evalFraction = new BigFraction(firstParsed);
+    else if (isInt(firstParsed))
+      evalFraction = new BigFraction(expArr[0] + "/1");
+    else if (firstParsed.length() == 1)
+      evalFraction = this.namedRegister.get(firstParsed.charAt(0));
 
-      if (curr.indexOf("/") != -1) {
-        evalFraction = applyOperator(
-          evalFraction,
-          new BigFraction(curr),
-          currOp
-        );
-      } else if (isInt(curr)) {
-        evalFraction = applyOperator(
-          evalFraction,
-          new BigFraction(Integer.parseInt(curr), 1),
-          currOp
-        );
+    for (int i = 1; i < expArr.length; i++) {
+      String curr = expArr[i];
+      BigFraction toApply = null;
+
+      if (isInt(curr)) {
+        toApply = new BigFraction(Integer.parseInt(curr), 1);
       } else if (curr.length() == 1) {
         char currChar = curr.charAt(0);
 
         if (isAlpha(currChar)) {
-          evalFraction = applyOperator(
-            evalFraction,
-            this.namedRegister.get(currChar),
-            currOp
-          );
-        } else currOp = getOperator(currChar);
+          toApply = this.namedRegister.get(currChar);
+        } else {
+          currOp = getOperator(currChar);
+        }
+      } else {
+        toApply = new BigFraction(curr);
+      }
+
+      if (toApply != null) {
+        evalFraction = applyOperator(
+          evalFraction,
+          toApply,
+          currOp
+        );
       }
     }
 
@@ -96,13 +103,17 @@ public class BFCalculator {
 
     switch(op) {
       case ADD:
-        oldFrac.add(newFrac);
+        result = oldFrac.add(newFrac);
+        break;
       case SUB:
-        oldFrac.subtract(newFrac);
+        result = oldFrac.subtract(newFrac);
+        break;
       case MUL:
-        oldFrac.multiply(newFrac);
+        result = oldFrac.multiply(newFrac);
+        break;
       case DIV:
-        oldFrac.divide(newFrac);
+        result = oldFrac.divide(newFrac);
+        break;
     }
 
     return result;
