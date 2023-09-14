@@ -1,11 +1,16 @@
 import java.io.PrintWriter;
 
+/**
+ * The backend behind InteractiveCalculator and QuickCalculator.
+ * 
+ * @author Julian Kim
+ */
 public class BaseCalculator {
   public BFCalculator bfCalc;
   public boolean running;
   public PrintWriter pen;
 
-  public BaseCalculator(){
+  public BaseCalculator() {
     this.bfCalc = new BFCalculator();
     this.running = true;
     this.pen = new PrintWriter(System.out, true);
@@ -17,22 +22,22 @@ public class BaseCalculator {
     this.pen = pen;
   }
 
-  public void evalCommand(String cmd) {
+  public String evalCommand(String cmd) {
     String[] parsedCmd = cmd.split(" ");
     if (parsedCmd.length <= 2) {
       String possibleCmd = parsedCmd[0].toUpperCase();
       if (possibleCmd.equals("QUIT")) {
         this.running = false;
-        return;
+        return "";
       }
       if (possibleCmd.equals("STORE")) {
         char reg = parsedCmd[1].charAt(0);
         this.bfCalc.store(reg);
-        return;
+        return "";
       }
     }
-    
+
     String output = this.bfCalc.evaluate(cmd).toString();
-    pen.println(output);
-  } 
+    return output;
+  }
 }

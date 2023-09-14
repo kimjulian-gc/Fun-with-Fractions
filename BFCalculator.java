@@ -1,15 +1,17 @@
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The primary workhorse! Evaluates expression strings and has a store register.
+ * 
+ * @author Julian Kim
+ */
 public class BFCalculator {
   private Map<Character, BigFraction> namedRegister;
   private BigFraction lastValue;
 
   private enum Operator {
-    ADD,
-    SUB,
-    MUL,
-    DIV
+    ADD, SUB, MUL, DIV
   }
 
   public BFCalculator() {
@@ -21,7 +23,7 @@ public class BFCalculator {
     String[] expArr = exp.split(" ");
     Operator currOp = Operator.ADD;
 
-    BigFraction evalFraction = this.lastValue;
+    BigFraction evalFraction = new BigFraction(0, 1);
     String firstParsed = expArr[0];
     if (firstParsed.indexOf("/") != -1)
       evalFraction = new BigFraction(firstParsed);
@@ -49,15 +51,11 @@ public class BFCalculator {
       }
 
       if (toApply != null) {
-        evalFraction = applyOperator(
-          evalFraction,
-          toApply,
-          currOp
-        );
+        evalFraction = applyOperator(evalFraction, toApply, currOp);
       }
     }
 
-    this.lastValue = evalFraction;
+    this.lastValue = evalFraction.simplify();
     return this.lastValue;
   }
 
@@ -101,7 +99,7 @@ public class BFCalculator {
   private static BigFraction applyOperator(BigFraction oldFrac, BigFraction newFrac, Operator op) {
     BigFraction result = oldFrac;
 
-    switch(op) {
+    switch (op) {
       case ADD:
         result = oldFrac.add(newFrac);
         break;

@@ -1,4 +1,5 @@
 import java.math.BigInteger;
+
 /**
  * A simple implementation of BigFractions.
  * 
@@ -11,12 +12,11 @@ public class BigFraction {
   // | Design Decisions |
   // +------------------+
   /*
-   * (1) Denominators are always positive. Therefore, negative fractions are represented 
-   * with a negative numerator. Similarly, if a fraction has a negative numerator, it 
-   * is negative.
+   * (1) Denominators are always positive. Therefore, negative fractions are represented with a
+   * negative numerator. Similarly, if a fraction has a negative numerator, it is negative.
    * 
-   * (2) BigFractions are not necessarily stored in simplified form. To obtain a fraction 
-   * in simplified form, one must call the `simplify` method.
+   * (2) BigFractions are not necessarily stored in simplified form. To obtain a fraction in
+   * simplified form, one must call the `simplify` method.
    */
 
   // +--------+-------------------------------------------------------
@@ -71,13 +71,10 @@ public class BigFraction {
   /**
    * Simplify this fraction and return it.
    */
-  public BigFraction simplify(){
+  public BigFraction simplify() {
     BigInteger ndGcd = this.num.gcd(this.denom);
 
-    return new BigFraction(
-      this.num.divide(ndGcd),
-      this.denom.divide(ndGcd)
-    );
+    return new BigFraction(this.num.divide(ndGcd), this.denom.divide(ndGcd));
   }
 
   /**
@@ -111,14 +108,14 @@ public class BigFraction {
   public BigInteger denominator() {
     return this.denom;
   } // denominator()
-  
+
   /**
    * Get the numerator of this fraction.
    */
   public BigInteger numerator() {
     return this.num;
   } // numerator()
-  
+
   /**
    * Convert this fraction to a string for ease of printing.
    */
@@ -134,22 +131,19 @@ public class BigFraction {
     return this.num + "/" + this.denom;
   } // toString()
 
-  public BigFraction multiply( BigFraction second ) {
-    // BigFraction result = new BigFraction(1,1); 
+  public BigFraction multiply(BigFraction second) {
+    // BigFraction result = new BigFraction(1,1);
     // result.num = first.num.multiply(second.num);
     // result.denom = first.denom.multiply(second.denom);
     // return result;
 
-    return new BigFraction(
-      this.num.multiply(second.num),
-      this.denom.multiply(second.denom)).simplify();
+    return new BigFraction(this.num.multiply(second.num), this.denom.multiply(second.denom))
+        .simplify();
   }
 
   public BigFraction divide(BigFraction second) {
-    return new BigFraction(
-      this.num.multiply(second.denom),
-      this.denom.multiply(second.num)
-    ).simplify();
+    return new BigFraction(this.num.multiply(second.denom), this.denom.multiply(second.num))
+        .simplify();
   }
 
   public BigFraction subtract(BigFraction subMe) {
@@ -168,6 +162,6 @@ public class BigFraction {
   }
 
   public BigFraction fractional() {
-    return new BigFraction(this.num.mod(this.denom), this.denom );
+    return new BigFraction(this.num.mod(this.denom), this.denom);
   }
 } // class BigFraction
