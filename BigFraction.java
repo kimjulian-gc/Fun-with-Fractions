@@ -74,7 +74,7 @@ public class BigFraction {
   public BigFraction simplify() {
     BigInteger ndGcd = this.num.gcd(this.denom);
 
-    return new BigFraction(this.num.divide(ndGcd), this.denom.divide(ndGcd));
+    return new BigFraction(this.num.divide(ndGcd), this.denom.divide(ndGcd)).fixFraction();
   }
 
   /**
@@ -99,7 +99,7 @@ public class BigFraction {
     resultNumerator = (this.num.multiply(addMe.denom)).add(addMe.num.multiply(this.denom));
 
     // Return the computed value
-    return new BigFraction(resultNumerator, resultDenominator).simplify();
+    return new BigFraction(resultNumerator, resultDenominator).fixFraction();
   }// add(Fraction)
 
   /**
@@ -138,12 +138,12 @@ public class BigFraction {
     // return result;
 
     return new BigFraction(this.num.multiply(second.num), this.denom.multiply(second.denom))
-        .simplify();
+        .fixFraction();
   }
 
   public BigFraction divide(BigFraction second) {
     return new BigFraction(this.num.multiply(second.denom), this.denom.multiply(second.num))
-        .simplify();
+        .fixFraction();
   }
 
   public BigFraction subtract(BigFraction subMe) {
@@ -158,10 +158,22 @@ public class BigFraction {
     resultNumerator = (this.num.multiply(subMe.denom)).subtract(subMe.num.multiply(this.denom));
 
     // Return the computed value
-    return new BigFraction(resultNumerator, resultDenominator).simplify();
+    return new BigFraction(resultNumerator, resultDenominator).fixFraction();
   }
 
   public BigFraction fractional() {
     return new BigFraction(this.num.mod(this.denom), this.denom);
+  }
+
+  private BigFraction fixFraction() {
+    BigInteger newNum = this.num;
+    BigInteger newDenom = this.denom;
+
+    if (newDenom.compareTo(BigInteger.valueOf(0)) < 0) {
+      newDenom = newDenom.negate();
+      newNum = newNum.negate();
+    }
+
+    return new BigFraction(newNum, newDenom);
   }
 } // class BigFraction

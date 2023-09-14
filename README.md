@@ -36,11 +36,12 @@ This project includes my work for - [MP02: Fun with Fractions](https://rebelsky.
     a separate class. (*Probably compliant?*)
 - [x] All or most variable names are appropriate. (*Again, probably.*)
 - [x] Handles expressions without fractional parts, such as `2 + 123`. (*Yeah, it does, but it converts it to an integer over 1.*)
-- [ ] Handles expressions with no operations, such as `a`, `11/2`, or `5`.
-- [ ] Handles negative numbers.
-- [ ] Provides an appropriate error message if the expression has the
+- [x] Handles expressions with no operations, such as `a`, `11/2`, or `5`.
+- [x] Handles negative numbers.
+- [x] Provides an appropriate error message if the expression has the
     wrong form (e.g., two numbers/registers in a row or two operations
     in a row).
 
 - (9/14/23) Last 3 crash and burn! I thought we didn't need to handle those errors yet...
     Time to fix!
+- (9/14/23) Fixed. Finally done!

@@ -37,7 +37,9 @@ public class BaseCalculator {
       }
     }
 
-    String output = this.bfCalc.evaluate(cmd).toString();
-    return output;
+    BigFraction output = this.bfCalc.evaluate(cmd);
+    if (output == null)
+      return "ERR! Expression has wrong form.";
+    return output.toString();
   }
 }
