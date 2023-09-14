@@ -9,6 +9,10 @@ This project includes my work for - [MP02: Fun with Fractions](https://rebelsky.
 - None
 
 ## Rubric (for personal use, not actual rubric)
+<details>
+
+<summary> Expand </summary>
+    
 ### Redo or above
 - [x] Includes the three specified `.java` files, correctly named.
 - [x] Each class has an introductory Javadoc comment that indicates
@@ -42,6 +46,9 @@ This project includes my work for - [MP02: Fun with Fractions](https://rebelsky.
     wrong form (e.g., two numbers/registers in a row or two operations
     in a row).
 
+### Notes
 - (9/14/23) Last 3 crash and burn! I thought we didn't need to handle those errors yet...
     Time to fix!
 - (9/14/23) Fixed. Finally done!
+
+</details>
