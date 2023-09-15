@@ -105,7 +105,6 @@ public class BFCalculator {
         return Operator.DIV;
     }
 
-    // should be unreachable...
     return Operator.None;
   }
 
