@@ -35,8 +35,6 @@ public class BigFraction {
 
   /**
    * Build a new fraction with numerator num and denominator denom.
-   * 
-   * Warning! Not yet stable.
    */
   public BigFraction(BigInteger num, BigInteger denom) {
     this.num = num;
@@ -45,8 +43,6 @@ public class BigFraction {
 
   /**
    * Build a new fraction with numerator num and denominator denom.
-   * 
-   * Warning! Not yet stable.
    */
   public BigFraction(int num, int denom) {
     this.num = BigInteger.valueOf(num);
@@ -55,8 +51,6 @@ public class BigFraction {
 
   /**
    * Build a new fraction by parsing a string.
-   *
-   * Warning! Not yet implemented.
    */
   public BigFraction(String str) {
     String[] splitStr = str.split("/");
@@ -131,6 +125,7 @@ public class BigFraction {
     return this.num + "/" + this.denom;
   } // toString()
 
+  // multiplies this fraction by a different fraction
   public BigFraction multiply(BigFraction second) {
     // BigFraction result = new BigFraction(1,1);
     // result.num = first.num.multiply(second.num);
@@ -141,11 +136,13 @@ public class BigFraction {
         .fixFraction();
   }
 
+  // divides this fraction by a different fraction.
   public BigFraction divide(BigFraction second) {
     return new BigFraction(this.num.multiply(second.denom), this.denom.multiply(second.num))
         .fixFraction();
   }
 
+  // subtracts a different fraction from this fraction.
   public BigFraction subtract(BigFraction subMe) {
     BigInteger resultNumerator;
     BigInteger resultDenominator;
@@ -161,10 +158,12 @@ public class BigFraction {
     return new BigFraction(resultNumerator, resultDenominator).fixFraction();
   }
 
+  // returns only the fractional part of this (potentially mixed) fraction.
   public BigFraction fractional() {
     return new BigFraction(this.num.mod(this.denom), this.denom);
   }
 
+  // fix negation problems with fractions (i.e. denominator is negative)
   private BigFraction fixFraction() {
     BigInteger newNum = this.num;
     BigInteger newDenom = this.denom;
