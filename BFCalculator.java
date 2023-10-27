@@ -69,9 +69,10 @@ public class BFCalculator {
     return strIsInt;
   }
 
+  // returns if the character input is a digit, a numeric character between 0-9.
   private static boolean isDigit(int ch) {
     int chShifted = ch - '0';
-    return chShifted >= 0 && chShifted < 10;
+    return chShifted >= 0 && chShifted <= 9;
   }
 
   private BigFraction getFracValue(String value) {
