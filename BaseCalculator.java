@@ -22,6 +22,7 @@ public class BaseCalculator {
     this.pen = pen;
   }
 
+  // evaluates the inputted command
   public String evalCommand(String cmd) {
     String[] parsedCmd = cmd.split(" ");
     if (parsedCmd.length <= 2) {

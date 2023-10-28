@@ -19,6 +19,8 @@ public class BFCalculator {
     this.lastValue = new BigFraction(0, 1);
   }
 
+  // evaluates a string expression representing an expression dealing with big
+  // fractions.
   public BigFraction evaluate(String exp) {
     String[] expArr = exp.split(" ");
     Operator currOp = Operator.ADD;
@@ -43,18 +45,26 @@ public class BFCalculator {
       }
 
       if (!prevWasOp) return null;
+
+      BigFraction currFrac = getFracValue(curr);
+      if (currFrac == null) return null;
+
       evalFraction = applyOperator(evalFraction, getFracValue(curr), currOp);
       prevWasOp = false;
     }
+
+    if (prevWasOp) return null;
 
     this.lastValue = evalFraction.simplify();
     return this.lastValue;
   }
 
+  // store the last calcualted value into the register
   public void store(char register) {
     this.namedRegister.put(register, this.lastValue);
   }
 
+  // checks if the string is an integer
   private static boolean isInt(String str) {
     char[] strArr = str.toCharArray();
     boolean strIsInt = true;
@@ -75,6 +85,8 @@ public class BFCalculator {
     return chShifted >= 0 && chShifted <= 9;
   }
 
+  // parses the string and turns it into a fraction.
+  // warning! output can be null.
   private BigFraction getFracValue(String value) {
     if (value.indexOf("/") != -1)
       return new BigFraction(value);
@@ -86,7 +98,7 @@ public class BFCalculator {
       return (possibleReg == null) ? new BigFraction(0, 1) : possibleReg;
     }
     
-    return new BigFraction(0, 1);
+    return null;
   }
 
   // private static boolean isAlpha(char ch) {
@@ -94,6 +106,7 @@ public class BFCalculator {
   //   return charShifted >= 0 && charShifted < 26;
   // }
 
+  // turns a possible operator character into an Operator
   private static Operator getOperator(char op) {
     switch (op) {
       case '+':
@@ -109,6 +122,7 @@ public class BFCalculator {
     return Operator.None;
   }
 
+  // apply the operator onto the two fractions
   private static BigFraction applyOperator(BigFraction oldFrac, BigFraction newFrac, Operator op) {
     BigFraction result = oldFrac;
 
