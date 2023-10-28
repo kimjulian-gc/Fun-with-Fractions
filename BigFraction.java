@@ -119,6 +119,11 @@ public class BigFraction {
       return "0";
     } // if it's zero
 
+    // if the denom is 1
+    if (this.denom.equals(BigInteger.ONE)) {
+      return this.num.toString();
+    }
+
     // Lump together the string represention of the numerator,
     // a slash, and the string representation of the denominator
     // return this.num.toString().concat("/").concat(this.denom.toString());
